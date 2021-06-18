@@ -4,7 +4,7 @@ from aiogram.dispatcher.filters import Text
 
 from . import models, crud, requests, database
 
-API_TOKEN = '1850591837:AAFYaQfVxC48h8Bk5sFp3zUOC2ChGfvgVBQ'
+API_TOKEN = 'api_token'
 
 models.Base.metadata.create_all(bind=database.engine)
 logging.basicConfig(level=logging.INFO)
