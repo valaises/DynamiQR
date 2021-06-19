@@ -64,10 +64,12 @@ async def get_link(link_id: int, user_id: int, db: Session = Depends(get_db)):
     crud.create_action(db=db, link_id=link_id, owner_id=owner_id)
     return f'''
     <html>
-    <head></head>
-    <body>
-    <a href="{link}">{link}</a>
-    </body>
+        <head></head>
+        <body>
+            <script type="text/javascript">
+                window.location.href = "{link}";
+            </script>
+        </body>
     </html>
     '''
 
