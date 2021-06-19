@@ -61,6 +61,7 @@ async def get_user(user_id: int, db: Session = Depends(get_db)):
 @app.get('/user/{user_id}/links/{link_id}', response_class=HTMLResponse)
 async def get_link(link_id: int, user_id: int, db: Session = Depends(get_db)):
     link = crud.get_link(db=db, owner_id=user_id, link_id=link_id).link_text
+    crud.create_action(db=db, link_id=link_id, owner_id=owner_id)
     return f'''
     <html>
     <head></head>
@@ -70,6 +71,9 @@ async def get_link(link_id: int, user_id: int, db: Session = Depends(get_db)):
     </html>
     '''
 
+@app.get('/user/{user_id}/links/{link_id}/stats')
+async def get_stats(link_id: int, user_id: int, db: Session = Depends(get_db())):
+    return crud.get_actions(db=db, link_id=link_id, user_id=user_id)
 
 @app.get('/user/{user_id}/links_list')
 async def get_links(user_id, db: Session = Depends(get_db)):

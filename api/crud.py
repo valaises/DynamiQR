@@ -1,6 +1,8 @@
 from sqlalchemy.orm import Session
 from typing import Optional
+from datetime import datetime
 import models
+
 
 
 def get_user(db: Session, id: int):
@@ -15,7 +17,7 @@ def create_user(db: Session, id: int, link_limit: Optional[int] = 3):
 
 
 def update_user(db: Session, id: int, link_limit: int):
-    user = db.query(models.User).filter(models.User.user_id == id).one()
+    user = db.query(models.User).filter(models.User.user_id == id).first()
     user.link_limit = link_limit
     db.commit()
     db.refresh(user)
@@ -34,12 +36,26 @@ def get_links(db: Session, owner_id: int):
 
 def get_link(db: Session, owner_id: int, link_id: int):
     return db.query(models.UserLink)\
-        .filter_by(owner_id=owner_id, link_id=link_id).one()
+        .filter_by(owner_id=owner_id, link_id=link_id).first()
 
 
 def update_link(db: Session, owner_id: int, link_id: int, upd_link_text: str):
     link = db.query(models.UserLink)\
-        .filter_by(owner_id=owner_id, link_id=link_id).one()
+        .filter_by(owner_id=owner_id, link_id=link_id).first()
     link.link_text = upd_link_text
     db.commit()
     db.refresh(link)
+
+
+def create_action(db: Session, link_id: int, owner_id: int):
+    db_action = models.UserLinkActions(link_id=link_id, owner_id=owner_id,
+                                       action_time=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
+    db.add(db_action)
+    db.commit()
+    db.refresh(db_action)
+
+
+def get_actions(db: Session, link_id: int, owner_id: int):
+    return db.query(models.UserLinkActions).filter_by(
+        link_id=link_id, owner_id=owner_id
+    ).all()

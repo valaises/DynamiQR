@@ -7,8 +7,8 @@ class User(BaseModel):
     user_id: int
     link_limit: Optional[int] = 3
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
 
 
 class UserLink(BaseModel):
@@ -16,5 +16,11 @@ class UserLink(BaseModel):
     link_id: int
     link_text: Optional[str] = None
 
-    class Config:
-        orm_mode = True
+    # class Config:
+    #     orm_mode = True
+
+
+class UserLinkActions(BaseModel):
+    link_id: int
+    owner_id: int
+    action_time: str

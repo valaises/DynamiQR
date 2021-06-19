@@ -16,3 +16,12 @@ class UserLink(Base):
     owner_id = Column(Integer, index=True, unique=False, nullable=False)
     link_text = Column(String, index=True, default='https://google.com', unique=False)
 
+
+class UserLinkActions(Base):
+    __tablename__ = 'user_link_actions'
+
+    link_id = Column(Integer, index=True, unique=True, primary_key=True, nullable=False)
+    owner_id = Column(Integer, index=True, unique=False, nullable=False)
+    action_time = Column(String, unique=False, nullable=False)
+
+
