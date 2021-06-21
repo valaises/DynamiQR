@@ -20,7 +20,8 @@ class UserLink(Base):
 class UserLinkActions(Base):
     __tablename__ = 'user_link_actions'
 
-    link_id = Column(Integer, index=True, unique=True, primary_key=True, nullable=False)
+    id = Column(String, index=True, primary_key=True, nullable=False)
+    link_id = Column(Integer, index=True, unique=False, nullable=False)
     owner_id = Column(Integer, index=True, unique=False, nullable=False)
     action_time = Column(String, unique=False, nullable=False)
 

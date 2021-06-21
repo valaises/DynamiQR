@@ -47,8 +47,8 @@ def update_link(db: Session, owner_id: int, link_id: int, upd_link_text: str):
     db.refresh(link)
 
 
-def create_action(db: Session, link_id: int, owner_id: int):
-    db_action = models.UserLinkActions(link_id=link_id, owner_id=owner_id,
+def create_action(db: Session, id: str, link_id: int, owner_id: int):
+    db_action = models.UserLinkActions(id=str(id), link_id=link_id, owner_id=owner_id,
                                        action_time=datetime.now().strftime("%d/%m/%Y %H:%M:%S"))
     db.add(db_action)
     db.commit()

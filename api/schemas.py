@@ -21,6 +21,7 @@ class UserLink(BaseModel):
 
 
 class UserLinkActions(BaseModel):
+    id: str
     link_id: int
     owner_id: int
     action_time: str

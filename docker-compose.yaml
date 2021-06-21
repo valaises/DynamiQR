@@ -7,3 +7,9 @@ services:
     restart: always
     ports:
     - 80:80
+
+  bot:
+    build: bot/
+    restart: always
+    ports:
+    - 8000:8000
